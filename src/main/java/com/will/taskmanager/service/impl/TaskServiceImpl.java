@@ -10,6 +10,8 @@ import com.will.taskmanager.service.TaskListService;
 import com.will.taskmanager.service.TaskService;
 import com.will.taskmanager.utils.Utils;
 import com.will.taskmanager.validator.TaskValidator;
+import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -25,11 +27,19 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskListService taskListService;
 
+    private final TaskValidator taskValidator = new TaskValidator();
+
+    @PostConstruct
+    private void setValidatorRepository() {
+        taskValidator.setTaskRepository(taskRepository);
+    }
+
     @Override
+    @Transactional
     public Task create(Integer taskListId, Task task) {
         TaskList taskList = taskListService.findById(taskListId);
-        TaskValidator.validateInsertOrUpdate(task);
         task.setTaskList(taskList);
+        taskValidator.validateInsertOrUpdate(task);
         task.setStatus(EnumTaskStatus.CREATED);
         task.setCreationDate(new Date());
         task.setPriority(Utils.nvl(task.getPriority(), EnumPriority.AVERAGE));
@@ -37,7 +47,10 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public void update(Integer taskId, Task task) {
+        taskValidator.validateInsertOrUpdate(task);
+
         Task managedTask = findById(taskId);
 
         managedTask.setPriority(Utils.nvl(task.getPriority(), managedTask.getPriority()));
@@ -48,6 +61,7 @@ public class TaskServiceImpl implements TaskService {
 
         taskRepository.save(managedTask);
     }
+
 
     @Override
     public Task findById(Integer taskId) {
