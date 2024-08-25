@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: taskmanager
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5433/taskmanagerdb
+    username: taskmanager
+    password: correta
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8081
+  error:
+    include: always
+
+logging:
+  level:
+    root: 'INFO'
+    org.hibernate.type.descriptor.sql.BasicBinder: 'TRACE'
+    org.hibernate.type.descriptor.sql.BasicExtractor: 'OFF'
+    org.springframework.web.servlet.DispatcherServlet: 'DEBUG'
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: 'DEBUG'
+    org.springframework.web: DEBUG
+    org.springframework: ERROR
