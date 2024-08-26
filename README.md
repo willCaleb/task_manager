@@ -25,6 +25,7 @@
 
 ## 🗂️ Estrutura do Projeto
 
+```
 src/
 ├── main/
 │   ├── java/com/example/taskmanager/
@@ -37,7 +38,7 @@ src/
 │   └── resources/
 │       └── application.properties  # Configurações de aplicação (DB, etc)
 └── test/                 # Testes unitários e de integração
-
+```
 🔥 Instalação e Execução
 Pré-requisitos
 Java 22
