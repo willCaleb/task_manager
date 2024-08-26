@@ -29,12 +29,16 @@
 src/
 ├── main/
 │   ├── java/com/example/taskmanager/
+│   │   ├── config/       # Classes de configurações
 │   │   ├── controller/   # Controladores RESTful
+│   │   ├── enums/        # Classes enum
+│   │   ├── exception/    # Classes de gerenciamento de excessões
 │   │   ├── model/        # Entidades JPA (Task, TaskList)
+│   │   ├── pattern/      # Classes padronizadoras do sistema
 │   │   ├── repository/   # Repositórios para acesso ao banco de dados
 │   │   ├── service/      # Lógica de negócios
-|   |   |── utils/         # Classes úteis 
-|   |   |── utils 
+|   |   |── utils/        # Classes úteis 
+|   |   |── validator     # Classes validadoras 
 │   └── resources/
 │       └── application.properties  # Configurações de aplicação (DB, etc)
 └── test/                 # Testes unitários e de integração
